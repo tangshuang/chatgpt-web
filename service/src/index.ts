@@ -98,7 +98,6 @@ router.post('/verify', async (req, res) => {
   }
 })
 
-app.use('', router)
 app.use('/api', router)
 app.set('trust proxy', 1)
 
