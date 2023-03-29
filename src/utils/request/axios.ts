@@ -1,16 +1,29 @@
 import axios, { type AxiosResponse } from 'axios'
 import { useAuthStore } from '@/store'
 
-const service = axios.create({
-  baseURL: import.meta.env.VITE_GLOB_API_URL,
+const { VITE_GLOB_API_URL, VITE_GLOB_API_TOKEN } = import.meta.env
+
+const config = {
+  baseURL: VITE_GLOB_API_URL,
   withCredentials: true,
-})
+  headers: {
+    'content-type': 'application/json; charset=utf-8',
+  },
+}
+const service = axios.create(config)
 
 service.interceptors.request.use(
   (config) => {
+    if (VITE_GLOB_API_TOKEN) {
+      config.headers['EGW-TOKEN'] = VITE_GLOB_API_TOKEN
+      config.params = config.params || {}
+      config.params.token = VITE_GLOB_API_TOKEN
+    }
+
     const token = useAuthStore().token
     if (token)
       config.headers.Authorization = `Bearer ${token}`
+
     return config
   },
   (error) => {
