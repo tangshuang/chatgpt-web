@@ -1,5 +1,5 @@
 cd ./service
-start pnpm start > service.log &
+start pnpm serve > service.log &
 echo "Start service complete!"
 
 

@@ -6,15 +6,15 @@ export function createViteProxy(isOpenProxy: boolean, viteEnv: ImportMetaEnv) {
 
   const proxy: Record<string, string | ProxyOptions> = {}
 
-  if (viteEnv.VITE_APP_API_BASE_URL) {
+  if (viteEnv.VITE_PROXY_API_TARGET) {
     proxy['/api'] = {
-      target: viteEnv.VITE_APP_API_BASE_URL,
+      target: viteEnv.VITE_PROXY_API_TARGET,
       changeOrigin: true,
-      rewrite: path => path.replace('/api/', '/'),
+      // rewrite: path => path.replace('/api/', '/'),
       configure(proxy) {
-        if (viteEnv.VITE_APP_API_TOKEN) {
+        if (viteEnv.VITE_PROXY_API_TOKEN) {
           proxy.on('proxyReq', (proxyReq) => {
-            proxyReq.setHeader('EGW-TOKEN', viteEnv.VITE_APP_API_TOKEN)
+            proxyReq.setHeader('EGW-TOKEN', viteEnv.VITE_PROXY_API_TOKEN)
           })
         }
       },
