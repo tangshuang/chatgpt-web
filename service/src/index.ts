@@ -13,9 +13,11 @@ app.use(express.static('public'))
 app.use(express.json())
 
 app.all('*', (_, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'authorization, Content-Type')
-  res.header('Access-Control-Allow-Methods', '*')
+  if (process.env.ENABLE_CORS) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'authorization, Content-Type')
+    res.header('Access-Control-Allow-Methods', '*')
+  }
   next()
 })
 
