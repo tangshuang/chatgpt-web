@@ -10,7 +10,7 @@ const show = ref(false)
 <template>
   <footer class="flex items-center justify-between min-w-0 p-4 overflow-hidden border-t dark:border-neutral-800">
     <div class="flex-1 flex-shrink-0 overflow-hidden">
-      <UserAvatar />
+      <slot></slot>
     </div>
 
     <HoverButton @click="show = true">

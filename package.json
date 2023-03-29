@@ -11,6 +11,7 @@
     "vue"
   ],
   "scripts": {
+    "start": "start.cmd",
     "dev": "vite",
     "build": "run-p type-check build-only",
     "preview": "vite preview",

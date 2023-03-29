@@ -43,6 +43,22 @@ router.post('/chat-process', [auth, limiter], async (req, res) => {
   }
 })
 
+router.post('/chat', [auth, limiter], async (req, res) => {
+  try {
+    const { prompt, options = {}, systemMessage } = req.body as RequestProps
+    const data = await chatReplyProcess({
+      message: prompt,
+      lastContext: options,
+      systemMessage,
+    })
+    res.json(data)
+  }
+  catch (error) {
+    res.status(500)
+    res.json({ status: 'Fail', message: error.message })
+  }
+})
+
 router.post('/config', auth, async (req, res) => {
   try {
     const response = await chatConfig()
@@ -84,4 +100,4 @@ app.use('', router)
 app.use('/api', router)
 app.set('trust proxy', 1)
 
-app.listen(3002, () => globalThis.console.log('Server is running on port 3002'))
+app.listen(+process.env.PORT, process.env.HOST, () => globalThis.console.log(`Server is running on ${process.env.HOST}:${process.env.PORT}`))

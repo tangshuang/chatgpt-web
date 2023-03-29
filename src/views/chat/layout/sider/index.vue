@@ -79,13 +79,14 @@ watch(
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
           <List />
         </div>
+      </main>
+      <Footer>
         <div class="p-4">
           <NButton block @click="show = true">
             {{ $t('store.siderButton') }}
           </NButton>
         </div>
-      </main>
-      <Footer />
+      </Footer>
     </div>
   </NLayoutSider>
   <template v-if="isMobile">
